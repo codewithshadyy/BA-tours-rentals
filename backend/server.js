@@ -15,11 +15,7 @@ const  contactRoutes = require('./routes/contact.js');
 const forceClientRole = ('./middleware/forceClientRole.js')
 
 const app = express();
-app.use(cors({
-  origin: ["https://codewithshadyy.github.io/BA-tours-rentals/", "https://ba-tours-rentals.onrender.com"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+app.use(cors());
 app.use(bodyParser.json());
 // app.use(forceClientRole);
 
