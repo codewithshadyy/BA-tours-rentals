@@ -1,7 +1,7 @@
 
 
 // frontend/js/app.js
-const API = 'https://ba-tours-rentals.onrender.com/api/';
+const API = 'https://ba-tours-rentals.onrender.com/api';
 
 // ---- Login / Signup page wiring ----
 if (document.getElementById('tab-login')) {
