@@ -37,7 +37,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/contact', contactRoutes);
 
 // simple root
-app.get('/', (req, res) => res.send('Travel Rental API running'));
+app.get('/', (req, res) => res.send('Tours and Rental App'));
 
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`));

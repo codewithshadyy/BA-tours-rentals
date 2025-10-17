@@ -1,7 +1,7 @@
 
 
 // frontend/js/app.js
-const API = 'http://localhost:5050/api';
+const API = 'render url:https://ba-tours-rentals.onrender.com';
 
 // ---- Login / Signup page wiring ----
 if (document.getElementById('tab-login')) {
