@@ -38,6 +38,8 @@ router.post('/report', authenticateToken, requireRole('Client'), async (req, res
 });
 
 
+
+
 router.post('/book', authenticateToken, requireRole("Client"), async (req, res) => {
   try {
     const userId = req.user.id; // depends on your auth middleware

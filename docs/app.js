@@ -316,6 +316,9 @@ async function loadAdminPage(page){
   } else if(page === 'reports'){
     main.innerHTML = '<h2>Client Reports</h2><div id="reports">Loading...</div>';
     try{
+
+      console.log(await fetch(`${API}/admin/reports`))
+      console.log(`eeror logging:${API}/admin/reports`)
       const res = await fetch(`${API}/admin/reports`, { headers: apiHeaders() });
       const data = await res.json();
       document.getElementById('reports').innerHTML = data.map(r=>`<div style="border:1px solid #eee;padding:10px;margin:8px 0;"><h3>${r.title}</h3><p>${r.message}</p><p>From: ${r.user?.name||r.user}</p><p>Status: ${r.status}</p><button onclick="updateReportStatus('${r._id}','In Progress')">Mark In Progress</button> <button onclick="updateReportStatus('${r._id}','Closed')">Close</button></div>`).join('');
