@@ -47,6 +47,26 @@ router.delete('/inventory/:id', authenticateToken, requireRole('Admin'), async (
   } catch(err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
 });
 
+
+
+
+router.get('/reports', authenticateToken, requireRole('Admin'), async (req, res) => {
+  try {
+    const reports = await Report.find()
+      .populate('user', 'name email') // show client name and email
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(reports);
+  } catch (err) {
+    console.error('Error fetching reports:', err);
+    res.status(500).json({ message: 'Server error while fetching client reports.' });
+  }
+});
+
+
+
+
+
 // bookings (view and confirm/cancel)
 router.get('/bookings', authenticateToken, requireRole('Admin'), async (req, res) => {
   try {
