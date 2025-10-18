@@ -29,8 +29,6 @@ async function doSignup(){
   if(!name||!email||!password){ msg.textContent='Please fill all fields'; return; }
   if(password!==password2){ msg.textContent='Passwords do not match'; return; }
   try{
-    console.log("API URL:", `${API}/auth/login`);
-
     const res = await fetch(`${API}/auth/signup`, {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ name, email, password, role })

@@ -503,3 +503,14 @@ async function updateReportStatus(id,status){
 
 async function confirmBooking(id){ try{ await fetch(`${API}/admin/bookings/${id}/confirm`, { method:'POST', headers: apiHeaders() }); loadAdminPage('bookings'); }catch(err){ console.error(err); } }
 async function cancelBooking(id){ try{ await fetch(`${API}/admin/bookings/${id}/cancel`, { method:'POST', headers: apiHeaders() }); loadAdminPage('bookings'); }catch(err){ console.error(err); } }
+
+
+
+
+
+
+
+//dark theme on the dashboard
+
+// ---- THEME TOGGLE ----
+
