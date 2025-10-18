@@ -160,9 +160,45 @@ async function loadClientPage(page) {
         document.getElementById('report-msg').textContent = res.ok ? 'Report sent' : (data.message || 'Failed');
       }catch(err){ console.error(err); document.getElementById('report-msg').textContent='Server error'; }
     });
-  } else if(page === 'profile'){
-    main.innerHTML = '<h2>Profile</h2><p>Profile info loaded from token.</p>';
+  } 
+
+
+else if(page === 'profile'){
+  main.innerHTML = `
+    <h2>My Profile</h2>
+    <div class="profile-card">
+      <img src="https://api.dicebear.com/8.x/avataaars/svg?seed=${Math.random().toString(36).substring(7)}" 
+           alt="Avatar" class="avatar">
+      <div class="profile-info">
+        <h3 id="profile-name">Loading...</h3>
+        <p id="profile-email"></p>
+        <p id="profile-role"></p>
+      </div>
+    </div>
+  `;
+
+  try {
+    const res = await fetch(`${API}/client/me`, { headers: apiHeaders() });
+    const user = await res.json();
+
+    if (!res.ok) {
+      main.innerHTML = `<p>Error: ${user.message || 'Failed to load profile.'}</p>`;
+      return;
+    }
+
+    document.getElementById('profile-name').textContent = user.name;
+    document.getElementById('profile-email').textContent = `Email: ${user.email}`;
+    document.getElementById('profile-role').textContent = `Role: ${user.role}`;
+  } catch (err) {
+    console.error(err);
+    document.getElementById('profile-name').textContent = 'Error loading profile.';
   }
+}
+
+
+
+
+
 }
 
 async function loadHouses(){

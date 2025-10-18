@@ -6,6 +6,7 @@ const { authenticateToken, requireRole } = require('../middleware/auth');
 const Property = require('../models/property');
 const Booking = require('../models/booking');
 const Report = require('../models/report');
+const User =require('../models/user')
 
 // get properties (with optional search q and type)
 router.get('/properties', authenticateToken, requireRole('Client'), async (req, res) => {
@@ -77,6 +78,22 @@ router.post('/book', authenticateToken, requireRole("Client"), async (req, res) 
   } catch (err) {
     console.error('Book route error:', err);
     return res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+///get the current logged user
+
+
+
+router.get('/me', authenticateToken, requireRole('Client'), async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('name email role createdAt');
+    if (!user) return res.status(404).json({ message: 'User not found.' });
+    res.json(user);
+  } catch (err) {
+    console.error('Error fetching profile:', err);
+    res.status(500).json({ message: 'Server error while fetching profile.' });
   }
 });
 
