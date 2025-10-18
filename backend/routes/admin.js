@@ -7,6 +7,7 @@ const { authenticateToken, requireRole } = require('../middleware/auth');
 const Property = require('../models/property');
 const Booking = require('../models/booking');
 const Report = require('../models/report');
+const Messages = require('../models/contact')
 
 // admin stats
 router.get('/stats', authenticateToken, requireRole('Admin'), async (req, res) => {

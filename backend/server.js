@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
 const clientRoutes = require('./routes/client');
 const adminRoutes = require('./routes/admin');
-const  contactRoutes = require('./routes/contact.js');
+const  contactRoutes = require('./routes/contact');
 const forceClientRole = ('./middleware/forceClientRole.js')
 
 const app = express();

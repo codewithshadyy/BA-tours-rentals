@@ -1,45 +1,50 @@
-const express = require("express");
-const Contact = require ('../models/contact.js');
-const { authenticateToken, requireRole } = require('../middleware/auth.js'); // adjust to your auth
 
+
+
+// backend/routes/contact.js
+const express = require('express');
 const router = express.Router();
+const Contact = require('../models/contact');
+const { authenticateToken, requireRole } = require('../middleware/auth');
 
-// Client submits contact form
+// ✅ Public route — client sends message
 router.post('/', async (req, res) => {
   try {
     const { name, email, message } = req.body;
     if (!name || !email || !message)
-      return res.status(400).json({ message: 'All fields required.' });
+      return res.status(400).json({ message: 'All fields are required.' });
 
-    const newMsg = new Contact({ name, email, message });
-    await newMsg.save();
-    res.status(200).json({ message: 'Message received!' });
+    const contact = new Contact({ name, email, message });
+    await contact.save();
+    res.status(201).json({ message: 'Message sent successfully.' });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Server error.' });
+    console.error('Error saving message:', err);
+    res.status(500).json({ message: 'Server error while saving message.' });
   }
 });
 
-// Admin view all messages
-router.get('/', authenticateToken, requireRole , async (req, res) => {
+// ✅ Admin route — get all messages
+router.get('/', authenticateToken, requireRole('Admin'), async (req, res) => {
   try {
-    const messages = await Contact.find().sort({ createdAt: -1 });
-    res.json(messages);
+    const contacts = await Contact.find().sort({ createdAt: -1 });
+    res.json(contacts);
   } catch (err) {
-    res.status(500).json({ message: 'Error loading messages.' });
+    console.error('Error fetching messages:', err);
+    res.status(500).json({ message: 'Server error while fetching messages.' });
   }
 });
 
-// Admin update message status
-router.post('/:id/status', authenticateToken, requireRole , async (req, res) => {
+// ✅ Admin route — update message status
+router.post('/:id/status', authenticateToken, requireRole('Admin'), async (req, res) => {
   try {
     const { status } = req.body;
-    await Contact.findByIdAndUpdate(req.params.id, { status });
-    res.json({ message: 'Status updated.' });
+    const contact = await Contact.findByIdAndUpdate(req.params.id, { status }, { new: true });
+    if (!contact) return res.status(404).json({ message: 'Message not found.' });
+    res.json(contact);
   } catch (err) {
-    res.status(500).json({ message: 'Error updating status.' });
+    console.error('Error updating message status:', err);
+    res.status(500).json({ message: 'Server error while updating status.' });
   }
 });
 
 module.exports = router;
-
