@@ -635,3 +635,45 @@ canvas#financeChart {
   margin: 20px auto;
   display: block;
 }
+
+
+
+/* styling the profile page in admin dashboard" */
+
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.user-table th, .user-table td {
+  padding: 10px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.user-table th {
+  background: #222;
+  color: #fff;
+  font-weight: 600;
+}
+
+.user-table tr:hover {
+  background: #f5f5f5;
+}
+
+.admin-role {
+  color: #2196f3;
+  font-weight: bold;
+}
+
+.client-role {
+  color: #4caf50;
+  font-weight: bold;
+}
+

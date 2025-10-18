@@ -8,6 +8,7 @@ const Property = require('../models/property');
 const Booking = require('../models/booking');
 const Report = require('../models/report');
 const Messages = require('../models/contact')
+const User =  require('../models/user')
 
 // admin stats
 router.get('/stats', authenticateToken, requireRole('Admin'), async (req, res) => {
@@ -130,6 +131,24 @@ router.get("/finance", authenticateToken, requireRole("Admin"), async (req, res)
     res.status(500).json({ message: "Server error loading finance data" });
   }
 });
+
+
+
+//get all registered users
+
+
+router.get('/users', authenticateToken, requireRole('Admin'), async (req, res) => {
+  try {
+    const users = await User.find({}, 'name email role createdAt')
+      .sort({ createdAt: -1 });
+    res.status(200).json(users);
+  } catch (err) {
+    console.error('Error fetching users:', err);
+    res.status(500).json({ message: 'Server error while fetching users.' });
+  }
+});
+
+
 
 
 

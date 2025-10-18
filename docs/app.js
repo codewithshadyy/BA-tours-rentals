@@ -382,11 +382,62 @@ async function loadAdminPage(page){
   
 
 
+else if(page === 'profile'){
+  main.innerHTML = `
+    <h2>Registered Users</h2>
+    <div id="users">Loading...</div>
+  `;
+
+  try {
+    const res = await fetch(`${API}/admin/users`, { headers: apiHeaders() });
+    const data = await res.json();
+
+    if (!res.ok) {
+      main.innerHTML = `<p>Error: ${data.message || 'Failed to load users.'}</p>`;
+      return;
+    }
+
+    if (data.length === 0) {
+      document.getElementById('users').innerHTML = '<p>No users registered yet.</p>';
+      return;
+    }
+
+    document.getElementById('users').innerHTML = `
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Joined</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.map((u, i) => `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${u.name}</td>
+              <td>${u.email}</td>
+              <td class="${u.role === 'Admin' ? 'admin-role' : 'client-role'}">${u.role}</td>
+              <td>${new Date(u.createdAt).toLocaleString()}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  } catch (err) {
+    console.error(err);
+    document.getElementById('users').innerHTML = '<p>Server error loading users.</p>';
+  }
+}
 
   
-  else if(page === 'profile'){
-    main.innerHTML = '<h2>Profile</h2><p>Profile area for admin.</p>';
-  }else if(page === 'messages'){
+
+
+
+
+else if(page === 'messages'){
   const main = document.getElementById('main-area');
   main.innerHTML = '<h2>Client Messages</h2><div id="messages">Loading...</div>';
   const res = await fetch(`${API}/contact`, { headers: apiHeaders() });

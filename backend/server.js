@@ -14,6 +14,7 @@ const adminRoutes = require('./routes/admin');
 const  contactRoutes = require('./routes/contact');
 const forceClientRole = ('./middleware/forceClientRole.js')
 
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
