@@ -599,11 +599,15 @@ async function cancelBooking(id){ try{ await fetch(`${API}/admin/bookings/${id}/
 
 //a button to allow toggle menu
 
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
-  const toggle = document.getElementById('menu-toggle');
   const sidebar = document.getElementById('sidebar');
+  const toggle = document.getElementById('menu-toggle');
   const overlay = document.getElementById('overlay');
 
+  // ✅ Sidebar Toggle
   if (toggle && sidebar && overlay) {
     toggle.addEventListener('click', () => {
       sidebar.classList.toggle('active');
@@ -614,18 +618,28 @@ document.addEventListener('DOMContentLoaded', () => {
       sidebar.classList.remove('active');
       overlay.classList.remove('active');
     });
-
-    // Close sidebar when selecting a link (mobile)
-    document.querySelectorAll('.sidebar a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 900) {
-          sidebar.classList.remove('active');
-          overlay.classList.remove('active');
-        }
-      });
-    });
-  } else {
-    console.error('Sidebar or toggle not found in DOM!');
   }
-});
 
+  // ✅ Page Loading (works for both Admin & Client dashboards)
+  const isAdmin = location.pathname.includes('admin_dashboard');
+  const isClient = location.pathname.includes('client_dashboard');
+
+  document.querySelectorAll('.sidebar a[data-page]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const page = link.dataset.page;
+
+      if (isAdmin) {
+        loadAdminPage(page);
+      } else if (isClient) {
+        loadClientPage(page);
+      }
+
+      // Close sidebar after clicking (mobile only)
+      if (window.innerWidth <= 900) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      }
+    });
+  });
+});
