@@ -64,5 +64,5 @@ It allows clients to browse, book, and report services, while admins manage inve
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/ba-tours-rentals.git
-cd ba-tours-rentals
+https://github.com/codewithshadyy/BA-tours-rentals.git
+cd BA-tours-rentals
