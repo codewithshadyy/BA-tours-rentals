@@ -8,7 +8,8 @@ const propertySchema = new mongoose.Schema({
   description: String,
   price: Number,
   images: [String],
-  type: { type: String, enum: ['House','Adventure'], default: 'House' },
+  type: { type: String, enum: ['Guided Tour', 'Water Sport'], required: true },
+
    slots: { type: Number, default: 5 }, // total available slots
 }, { timestamps: true });
 
