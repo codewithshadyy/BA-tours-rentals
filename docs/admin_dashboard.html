@@ -16,117 +16,137 @@
 
     <style>
 
+/* ===== UNIVERSAL DASHBOARD LAYOUT ===== */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fa;
+  font-family: 'Poppins', sans-serif;
+}
 
-      /* =============== SIDEBAR (DESKTOP) =============== */
+/* ===== SIDEBAR ===== */
 .sidebar {
   width: 250px;
-  height: 100vh;
-  background: linear-gradient(180deg, #001f3f, #004080);
-  color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow-y: auto;
-  padding-top: 20px;
-  z-index: 1000;
-  transition: transform 0.3s ease-in-out;
-}
-
-.sidebar .user-box {
-  font-size: 1.4em;
-  text-align: center;
-  padding: 20px 0;
-  font-weight: bold;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.sidebar .menu-links {
-  list-style: none;
-  margin: 20px 0;
-  padding: 0;
-}
-
-.sidebar .menu-links li {
-  margin: 10px 0;
-}
-
-.sidebar .menu-links a {
-  display: block;
-  padding: 12px 20px;
-  text-decoration: none;
+  background: linear-gradient(180deg, #001f3f 0%, #0052a3 100%);
   color: #fff;
-  font-size: 1.1em;
-  transition: background 0.3s ease, padding-left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 15px;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
+  position: relative;
 }
 
-.sidebar .menu-links a:hover {
-  background: rgba(255, 255, 255, 0.15);
-  padding-left: 28px;
+/* === Sidebar user box === */
+.sidebar .user-box {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 35px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
 }
 
-/* =============== MAIN AREA (DESKTOP) =============== */
+/* === Sidebar menu === */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex: 1; /* ensures spacing pushes logout near bottom if needed */
+}
+
+/* === Sidebar links === */
+.sidebar ul li {
+  width: 100%;
+  margin: 6px 0;
+}
+
+.sidebar ul li a {
+  display: block;
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #dce3f3;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  background: #00c6ff;
+  color: #fff;
+  transform: translateX(6px);
+  box-shadow: 0 3px 10px rgba(0, 198, 255, 0.3);
+}
+
+/* === Logout link special === */
+.sidebar ul li a#logout {
+  background: rgba(255, 0, 0, 0.2);
+  color: #ff8080;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.sidebar ul li a#logout:hover {
+  background: #ff4040;
+  color: #fff;
+}
+
+/* ===== MAIN AREA ===== */
 .main-area {
-  margin-left: 250px;
-  padding: 25px;
-  transition: margin-left 0.3s ease;
+  flex: 1;
+  padding: 40px;
+  background: #ffffff;
+  overflow-y: auto;
 }
 
-/* =============== HAMBURGER (MOBILE) =============== */
-.menu-toggle {
-  display: none;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  background: #001f3f;
-  color: white;
-  font-size: 24px;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  z-index: 1100;
+.main-area h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #004aad;
+  border-left: 5px solid #00c6ff;
+  padding-left: 10px;
+  font-weight: 700;
 }
 
-/* =============== OVERLAY (MOBILE) =============== */
-#overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 900;
-}
-
-/* =============== MOBILE STYLES =============== */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-  .menu-toggle {
-    display: block;
+  .dashboard {
+    flex-direction: column;
   }
-
   .sidebar {
-    transform: translateX(-260px);
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
   }
-
-  .sidebar.active {
-    transform: translateX(0);
+  .sidebar ul {
+    flex-direction: row;
+    flex-wrap: nowrap;
   }
-
-  #overlay.active {
-    display: block;
+  .sidebar ul li {
+    margin: 0 5px;
   }
-
+  .sidebar ul li a {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
   .main-area {
-    margin-left: 0;
-    padding-top: 70px;
+    padding: 20px;
   }
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -139,15 +159,10 @@
 
 </head>
 <body>
-
-
-<div id="overlay"></div>
-
   <div class="dashboard">
        
 
-<!--menu-->
-    <div class="menu-toggle" id="menu-toggle">☰</div>
+    
 
     <!--sidebar-->
     <aside class="sidebar">
