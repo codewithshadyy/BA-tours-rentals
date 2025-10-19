@@ -206,7 +206,7 @@ else if(page === 'profile'){
 
 
 async function loadTours(){
-  const res = await fetch(`${API}/client/inventory?type=Guided Tour`, { headers: apiHeaders() });
+  const res = await fetch(`${API}/client/properties?type=Guided Tour`, { headers: apiHeaders() });
   const items = await res.json();
   const container = document.getElementById('items');
   container.innerHTML = items.map(it=>`
@@ -221,7 +221,7 @@ async function loadTours(){
 }
 
 async function loadWaterSports(){
-  const res = await fetch(`${API}/client/inventory?type=Water Sport`, { headers: apiHeaders() });
+  const res = await fetch(`${API}/client/properties?type=Water Sport`, { headers: apiHeaders() });
   const items = await res.json();
   const container = document.getElementById('items');
   container.innerHTML = items.map(it=>`
