@@ -602,16 +602,30 @@ async function cancelBooking(id){ try{ await fetch(`${API}/admin/bookings/${id}/
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.getElementById('menu-toggle');
   const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
 
-  if (toggle && sidebar) {
+  if (toggle && sidebar && overlay) {
     toggle.addEventListener('click', () => {
       sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
     });
 
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+    // Close sidebar when selecting a link (mobile)
     document.querySelectorAll('.sidebar a').forEach(link => {
       link.addEventListener('click', () => {
-        if (window.innerWidth <= 900) sidebar.classList.remove('active');
+        if (window.innerWidth <= 900) {
+          sidebar.classList.remove('active');
+          overlay.classList.remove('active');
+        }
       });
     });
+  } else {
+    console.error('Sidebar or toggle not found in DOM!');
   }
 });
+
