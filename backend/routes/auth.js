@@ -10,47 +10,44 @@ const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
 
 
-
-
+// backend/routes/auth.js
 router.post('/signup', async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    if (!name || !email || !password)
-      return res.status(400).json({ message: 'All fields required' });
 
-    const normalizedEmail = email.trim().toLowerCase();
+    // ✅ Only these two emails can be Admins
+    const adminEmails = ['laylakoeh62@gmail.com', 'mosessangura2003@gmail.com'];
 
-    // ✅ only these two can ever be Admin
-    const allowedAdmins = ['laylakoeh62@gmail.com', 'mosessangura2003@gmail.com'];
+    // ✅ Assign role based on email
+    const role = adminEmails.includes(email.toLowerCase()) ? 'Admin' : 'Client';
 
-    // ✅ everyone else = Client
-    const role = allowedAdmins.includes(normalizedEmail) ? 'Admin' : 'Client';
+    // check if user exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already exists.' });
+    }
 
-    // ✅ no duplicate emails
-    const existing = await User.findOne({ email: normalizedEmail });
-    if (existing)
-      return res.status(400).json({ message: 'Email already exists' });
-
-    const hashed = await bcrypt.hash(password, 10);
-    const user = new User({ name, email: normalizedEmail, password: hashed, role });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({ name, email, password: hashedPassword, role });
     await user.save();
 
     const token = jwt.sign(
       { id: user._id, role: user.role },
-      process.env.JWT_SECRET || 'secret',
+      process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );
 
-    return res.status(201).json({
-      message: 'Signup successful',
+    res.status(201).json({
+      message: 'Signup successful!',
       token,
       role: user.role,
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error during signup.' });
   }
 });
+
 
 
 

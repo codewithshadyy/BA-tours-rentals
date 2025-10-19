@@ -23,15 +23,15 @@ async function doSignup(){
   const email=document.getElementById('signup-email').value.trim();
   const password=document.getElementById('signup-password').value;
   const password2=document.getElementById('signup-password2').value;
-  const role=document.getElementById('signup-role').value;
   const msg=document.getElementById('signup-msg');
   msg.textContent='';
   if(!name||!email||!password){ msg.textContent='Please fill all fields'; return; }
   if(password!==password2){ msg.textContent='Passwords do not match'; return; }
   try{
     const res = await fetch(`${API}/auth/signup`, {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ name, email, password, role })
+         method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ name, email, password })
     });
     const data = await res.json();
     if(!res.ok){ msg.textContent = data.message || 'Signup failed'; return; }
