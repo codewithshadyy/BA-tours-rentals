@@ -17,45 +17,77 @@
     <style>
 
 
-/* Sidebar Base */
+      /* =============== SIDEBAR (DESKTOP) =============== */
 .sidebar {
-  width: 240px;
+  width: 250px;
+  height: 100vh;
   background: linear-gradient(180deg, #001f3f, #004080);
   color: white;
-  height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
+  overflow-y: auto;
   padding-top: 20px;
-  transition: transform 0.3s ease;
   z-index: 1000;
+  transition: transform 0.3s ease-in-out;
 }
 
-.sidebar ul {
+.sidebar .user-box {
+  font-size: 1.4em;
+  text-align: center;
+  padding: 20px 0;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sidebar .menu-links {
   list-style: none;
+  margin: 20px 0;
   padding: 0;
-  margin: 30px 0;
 }
 
-.sidebar li {
+.sidebar .menu-links li {
   margin: 10px 0;
 }
 
-.sidebar a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.1em;
-  padding: 10px 20px;
+.sidebar .menu-links a {
   display: block;
-  border-radius: 6px;
-  transition: background 0.3s ease;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.1em;
+  transition: background 0.3s ease, padding-left 0.3s ease;
 }
 
-.sidebar a:hover {
-  background: rgba(255, 255, 255, 0.2);
+.sidebar .menu-links a:hover {
+  background: rgba(255, 255, 255, 0.15);
+  padding-left: 28px;
 }
 
-/* Overlay */
+/* =============== MAIN AREA (DESKTOP) =============== */
+.main-area {
+  margin-left: 250px;
+  padding: 25px;
+  transition: margin-left 0.3s ease;
+}
+
+/* =============== HAMBURGER (MOBILE) =============== */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #001f3f;
+  color: white;
+  font-size: 24px;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+/* =============== OVERLAY (MOBILE) =============== */
 #overlay {
   display: none;
   position: fixed;
@@ -64,32 +96,7 @@
   z-index: 900;
 }
 
-#overlay.active {
-  display: block;
-}
-
-/* Hamburger */
-.menu-toggle {
-  display: none;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  font-size: 28px;
-  color: white;
-  background: #001f3f;
-  border: none;
-  padding: 10px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  z-index: 1100;
-  transition: background 0.3s ease;
-}
-
-.menu-toggle:hover {
-  background: #004080;
-}
-
-/* Mobile view */
+/* =============== MOBILE STYLES =============== */
 @media (max-width: 900px) {
   .menu-toggle {
     display: block;
@@ -101,8 +108,7 @@
 
   .sidebar.active {
     transform: translateX(0);
-  }☰
-  
+  }
 
   #overlay.active {
     display: block;
@@ -110,16 +116,11 @@
 
   .main-area {
     margin-left: 0;
+    padding-top: 70px;
   }
 }
 
-/* Desktop view */
-@media (min-width: 901px) {
-  .main-area {
-    margin-left: 240px;
-    padding: 20px;
-  }
-}
+
 
 
 
