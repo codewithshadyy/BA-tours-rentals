@@ -22,7 +22,40 @@ router.get('/properties', authenticateToken, requireRole('Client'), async (req, 
   }
 });
 
-// book an item
+// book an item physically
+
+
+// Record an offline booking
+router.post('/offline-booking', authenticateToken, requireRole('Admin'), async (req, res) => {
+  try {
+    const { name, email, phone, activity, adults, children, startDate, endDate, total, paymentMethod } = req.body;
+
+    // You can create a separate "OfflineBooking" model or reuse the Booking model
+    const booking = await Booking.create({
+      user: null, // no online user
+      item: null,
+      startDate,
+      endDate,
+      status: 'Confirmed',
+      total,
+      adults,
+      children,
+      paymentStatus: 'Paid',
+      paymentMethod,
+      notes: `Offline booking - ${activity} by ${name} (${email || 'No email'})`,
+    });
+
+    res.json({ message: 'Offline booking saved successfully', booking });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
+
+
 
 
 

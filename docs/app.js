@@ -344,7 +344,70 @@ async function loadAdminPage(page){
     main.innerHTML = '<h2>Inventory Records</h2><button id="add-item">Add Item</button><div id="items" class="grid"></div>';
     document.getElementById('add-item').addEventListener('click', ()=>{ showInventoryForm(); });
     await loadInventory();
-  } else if(page === 'reports'){
+  }
+  
+     else if (page === 'offline-bookings') {
+  const main = document.getElementById('main-area');
+  main.innerHTML = `
+    <h2>Record Offline Booking</h2>
+    <form id="offline-booking-form">
+      <input type="text" id="cust-name" placeholder="Full Name" required />
+      <input type="email" id="cust-email" placeholder="Email (optional)" />
+      <input type="tel" id="cust-phone" placeholder="Phone Number" required />
+      <select id="activity-type" required>
+        <option value="">Select Activity</option>
+        <option value="Guided Tour">Guided Tour</option>
+        <option value="Water Sport Rental">Water Sport Rental</option>
+      </select>
+      <input type="number" id="adults" placeholder="No. of Adults" min="1" required />
+      <input type="number" id="children" placeholder="No. of Children" min="0" />
+      <input type="date" id="start-date" required />
+      <input type="date" id="end-date" required />
+      <input type="number" id="total" placeholder="Total Amount" required />
+      <select id="payment-method">
+        <option value="M-Pesa">M-Pesa</option>
+        <option value="Cash">Cash</option>
+      </select>
+      <button type="submit">Save Booking</button>
+    </form>
+    <p id="offline-booking-msg"></p>
+  `;
+
+  document.getElementById('offline-booking-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const body = {
+      name: document.getElementById('cust-name').value,
+      email: document.getElementById('cust-email').value,
+      phone: document.getElementById('cust-phone').value,
+      activity: document.getElementById('activity-type').value,
+      adults: Number(document.getElementById('adults').value),
+      children: Number(document.getElementById('children').value),
+      startDate: document.getElementById('start-date').value,
+      endDate: document.getElementById('end-date').value,
+      total: Number(document.getElementById('total').value),
+      paymentMethod: document.getElementById('payment-method').value,
+    };
+
+    try {
+      const res = await fetch(`${API}/admin/offline-booking`, {
+        method: 'POST',
+        headers: apiHeaders(),
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      document.getElementById('offline-booking-msg').textContent =
+        res.ok ? 'Offline booking saved successfully!' : data.message || 'Error saving booking.';
+    } catch (err) {
+      console.error(err);
+      document.getElementById('offline-booking-msg').textContent = 'Server error.';
+    }
+  });
+}
+
+  
+  
+  
+  else if(page === 'reports'){
     main.innerHTML = '<h2>Client Reports</h2><div id="reports">Loading...</div>';
     try{
 
