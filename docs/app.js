@@ -593,3 +593,25 @@ async function updateReportStatus(id,status){
 
 async function confirmBooking(id){ try{ await fetch(`${API}/admin/bookings/${id}/confirm`, { method:'POST', headers: apiHeaders() }); loadAdminPage('bookings'); }catch(err){ console.error(err); } }
 async function cancelBooking(id){ try{ await fetch(`${API}/admin/bookings/${id}/cancel`, { method:'POST', headers: apiHeaders() }); loadAdminPage('bookings'); }catch(err){ console.error(err); } }
+
+
+
+
+//a button to allow toggle menu
+
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+
+  if (toggle && sidebar) {
+    toggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
+
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 900) sidebar.classList.remove('active');
+      });
+    });
+  }
+});
