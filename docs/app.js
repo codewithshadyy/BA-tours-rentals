@@ -70,6 +70,9 @@ function apiHeaders(){
 
 // ---- Client dashboard behavior ----
 if (document.querySelector('.dashboard') && location.pathname.includes('client_dashboard')) {
+
+  
+
   // set username
   const userNameEl = document.getElementById('user-name');
   const role = localStorage.getItem('role');
@@ -84,12 +87,48 @@ if (document.querySelector('.dashboard') && location.pathname.includes('client_d
 
   document.getElementById('logout')?.addEventListener('click', ()=>{ localStorage.clear(); location.href='index.html'; });
 
-  loadClientPage('houses');
+  loadClientPage('home');
 }
 
 async function loadClientPage(page) {
   const main = document.getElementById('main-area');
-  if(page === 'tours'){
+
+
+if (page === 'home') {
+  const name = localStorage.getItem('userName') || 'Explorer';
+  document.getElementById('main-area').innerHTML = `
+    <section class="client-welcome">
+      <div class="welcome-header">
+        <h1>Welcome back, ${name}! 👋</h1>
+        <p>Ready to embark on your next adventure? Choose from our exclusive guided tours or thrilling water sports.</p>
+      </div>
+
+      <div class="welcome-cards">
+        <div class="card" onclick="loadClientPage('tours')">
+          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80" alt="Guided Tours">
+          <div class="card-content">
+            <h2>Guided Tours</h2>
+            <p>Explore breathtaking destinations with our expert guides.</p>
+            <button>Discover Now</button>
+          </div>
+        </div>
+
+        <div class="card" onclick="loadClientPage('water-sports')">
+          <img src="https://images.unsplash.com/photo-1602080758743-3cc1d18e6b38?auto=format&fit=crop&w=900&q=80" alt="Water Sports">
+          <div class="card-content">
+            <h2>Water Sports</h2>
+            <p>Dive into the thrill of jet skiing, kayaking, and more!</p>
+            <button>Get Started</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+
+
+  else if(page === 'tours'){
    main.innerHTML = `
     <h2>Guided Tours</h2>
     <div>
