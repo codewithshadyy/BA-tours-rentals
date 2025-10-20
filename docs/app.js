@@ -244,24 +244,27 @@ async function loadGuidedTours(){
 
 
 
-
 async function loadWaterSports(){
   try {
-    const res = await fetch(`${API}/client/properties?type=Water Sport `, { headers: apiHeaders() });
+    const res = await fetch(`${API}/client/properties?type=Water%20Sport`, { headers: apiHeaders() });
     const items = await res.json();
+    if (!Array.isArray(items)) throw new Error('Invalid data');
     const container = document.getElementById('items');
-    container.innerHTML = items.map(it=>`
-      <article class="card">
-        <img src="${it.images?.[0]||'https://picsum.photos/600/400'}"/>
-        <h3>${it.title}</h3>
-        <p>${it.description||''}</p>
-        <p>Price: ${it.price||'N/A'}</p>
-        <p>ID: ${it._id}</p>
-        <button onclick="promptBooking('${it._id}')">Book</button>
-      </article>`).join('');
+    container.innerHTML = items.length
+      ? items.map(it => `
+          <article class="card">
+            <img src="${it.images?.[0] || 'https://picsum.photos/600/400'}" />
+            <h3>${it.title}</h3>
+            <p>${it.description || ''}</p>
+            <p>Price: ${it.price || 'N/A'}</p>
+            <p>ID: ${it._id}</p>
+            <button onclick="promptBooking('${it._id}')">Book</button>
+          </article>
+        `).join('')
+      : '<p>No water sport rentals available at the moment.</p>';
   } catch(err) {
-    console.error(err);
-    document.getElementById('items').innerHTML = '<p>Error loading water sports</p>';
+    console.error('Error loading water sports:', err);
+    document.getElementById('items').innerHTML = '<p>Error loading water sports.</p>';
   }
 }
 
