@@ -87,7 +87,8 @@ if (document.querySelector('.dashboard') && location.pathname.includes('client_d
 
   document.getElementById('logout')?.addEventListener('click', ()=>{ localStorage.clear(); location.href='index.html'; });
 
-  loadClientPage('home');
+  window.addEventListener('DOMContentLoaded', () => loadClientPage('home'));
+
 }
 
 async function loadClientPage(page) {
