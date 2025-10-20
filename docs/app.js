@@ -286,7 +286,7 @@ async function loadGuidedTours(){
 
 async function loadWaterSports(){
   try {
-    const res = await fetch(`${API}/client/properties?type=Water%20Sport%20Rental`, { headers: apiHeaders() });
+    const res = await fetch(`${API}/client/properties?type=Water%20Sport`, { headers: apiHeaders() });
     const items = await res.json();
     if (!Array.isArray(items)) throw new Error('Invalid data');
     const container = document.getElementById('items');
