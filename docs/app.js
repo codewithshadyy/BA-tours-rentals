@@ -115,7 +115,7 @@ if (page === 'home') {
         </div>
 
         <div class="card" onclick="loadClientPage('water-sports')">
-          <img src="https://pixabay.com/get/gbbb84296ba33bf772354a9a70cf7925c38a42004a6d2d28f0213381f73d0fa866b2b7c070ff3021851084d968f2fa8594e39dbc0d919d933ee0771e7ca40a959470f0a5b9ed98292ad8755c4b65b7546_1280.jpg?attachment=" alt="Water Sports">
+          <img src="https://images.unsplash.com/photo-1633107763197-e77cbee3cfdb?ixlib=rb-4.1.0&q=85&fm=jpg&crop=entropy&cs=srgb&dl=kostiantyn-li-QjnC2kR0O-c-unsplash.jpg" alt="Water Sports">
           <div class="card-content">
             <h2>Water Sports</h2>
             <p>Dive into the thrill of jet skiing, kayaking, and more!</p>
