@@ -247,7 +247,7 @@ async function loadGuidedTours(){
 
 async function loadWaterSports(){
   try {
-    const res = await fetch(`${API}/client/properties?type=Water Sport Rental`, { headers: apiHeaders() });
+    const res = await fetch(`${API}/client/properties?type=Water Sport `, { headers: apiHeaders() });
     const items = await res.json();
     const container = document.getElementById('items');
     container.innerHTML = items.map(it=>`
