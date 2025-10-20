@@ -90,13 +90,24 @@ if (document.querySelector('.dashboard') && location.pathname.includes('client_d
 async function loadClientPage(page) {
   const main = document.getElementById('main-area');
   if(page === 'tours'){
-  main.innerHTML = '<h2>Guided Tours</h2><div><input id="search-q" placeholder="Search tours"/> <select id="filter-type"><option value="">All</option><option value="Guided Tour">Guided Tour</option></select> <button id="btn-search">Search</button></div><div id="items" class="grid"></div>';
-  document.getElementById('btn-search').addEventListener('click', loadTours);
-  await loadTours();
-} else if(page === 'watersports'){
-  main.innerHTML = '<h2>Water Sports Rentals</h2><div id="items" class="grid"></div>';
+   main.innerHTML = `
+    <h2>Guided Tours</h2>
+    <div>
+      <input id="search-q" placeholder="Search guided tours"/> 
+      <select id="filter-type">
+        <option value="">All</option>
+        <option value="Guided Tour">Guided Tour</option>
+      </select> 
+      <button id="btn-search">Search</button>
+    </div>
+    <div id="items" class="grid"></div>`;
+  document.getElementById('btn-search').addEventListener('click', loadGuidedTours);
+  await loadGuidedTours();
+} else if(page === 'water-sports'){
+  main.innerHTML = '<h2>Water Sport Rentals</h2><div id="items" class="grid"></div>';
   await loadWaterSports();
 }
+
 
   else if (page === 'booking') {
   main.innerHTML = `
@@ -204,36 +215,56 @@ else if(page === 'profile'){
 
 
 
+async function loadGuidedTours(){
+  const q = document.getElementById('search-q').value || ''; 
+  const type = document.getElementById('filter-type').value || '';
+  const params = new URLSearchParams(); 
+  if(q) params.set('q', q); 
+  if(type) params.set('type', type);
 
-async function loadTours(){
-  const res = await fetch(`${API}/client/inventory?type=Guided Tour`, { headers: apiHeaders() });
-  const items = await res.json();
-  const container = document.getElementById('items');
-  container.innerHTML = items.map(it=>`
-    <article class="card">
-      <img src="${it.images?.[0] || 'https://picsum.photos/600/400'}"/>
-      <h3>${it.title}</h3>
-      <p>${it.description||''}</p>
-      <p>Price: ${it.price||'N/A'}</p>
-      <button onclick="promptBooking('${it._id}')">Book</button>
-    </article>
-  `).join('');
+  try {
+    const res = await fetch(`${API}/client/properties?${params.toString()}`, { headers: apiHeaders() });
+    const items = await res.json();
+    const container = document.getElementById('items');
+    container.innerHTML = items.map(it=>`
+      <article class="card">
+        <img src="${it.images?.[0]||'https://picsum.photos/600/400'}"/>
+        <h3>${it.title}</h3>
+        <p>${it.description||''}</p>
+        <p>Price: ${it.price||'N/A'}</p>
+        <p>ID: ${it._id}</p>
+        <button onclick="promptBooking('${it._id}')">Book</button>
+      </article>`).join('');
+  } catch(err) {
+    console.error(err);
+    document.getElementById('items').innerHTML = '<p>Error loading guided tours</p>';
+  }
 }
+
+
+
+
 
 async function loadWaterSports(){
-  const res = await fetch(`${API}/client/inventory?type=Water Sport`, { headers: apiHeaders() });
-  const items = await res.json();
-  const container = document.getElementById('items');
-  container.innerHTML = items.map(it=>`
-    <article class="card">
-      <img src="${it.images?.[0] || 'https://picsum.photos/600/400'}"/>
-      <h3>${it.title}</h3>
-      <p>${it.description||''}</p>
-      <p>Price: ${it.price||'N/A'}</p>
-      <button onclick="promptBooking('${it._id}')">Book</button>
-    </article>
-  `).join('');
+  try {
+    const res = await fetch(`${API}/client/properties?type=Water Sport Rental`, { headers: apiHeaders() });
+    const items = await res.json();
+    const container = document.getElementById('items');
+    container.innerHTML = items.map(it=>`
+      <article class="card">
+        <img src="${it.images?.[0]||'https://picsum.photos/600/400'}"/>
+        <h3>${it.title}</h3>
+        <p>${it.description||''}</p>
+        <p>Price: ${it.price||'N/A'}</p>
+        <p>ID: ${it._id}</p>
+        <button onclick="promptBooking('${it._id}')">Book</button>
+      </article>`).join('');
+  } catch(err) {
+    console.error(err);
+    document.getElementById('items').innerHTML = '<p>Error loading water sports</p>';
+  }
 }
+
 
 
 
@@ -699,6 +730,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+//making sure it works
+//make  it
 
 
 

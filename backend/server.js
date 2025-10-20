@@ -15,6 +15,7 @@ const  contactRoutes = require('./routes/contact');
 const forceClientRole = ('./middleware/forceClientRole.js')
 
 
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -26,7 +27,7 @@ app.use((req, res, next) => {
 });
 
 // connect to MongoDB
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://laylakoeh62_db_user:UzgmnipKmd5MGSGC@cluster0.ywvsngw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://laylakoeh62_db_user:UzgmnipKmd5MGSGC@cluster0.ywvsngw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 mongoose.connect(MONGO_URI)
   .then(()=> console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
