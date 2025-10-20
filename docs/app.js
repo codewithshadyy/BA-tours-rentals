@@ -137,6 +137,7 @@ if (page === 'home') {
       <select id="filter-type">
         <option value="">All</option>
         <option value="Guided Tour">Guided Tour</option>
+        <option value = "Water Sport Rental">Water Sport</option>
       </select> 
       <button id="btn-search">Search</button>
     </div>
