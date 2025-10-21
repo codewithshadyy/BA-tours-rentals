@@ -123,7 +123,7 @@ button{cursor:pointer;padding:10px 14px;border-radius:6px;border:none;background
 }
 .service-info h2 {
   margin-top: 0;
-  color: #0b72ff;
+  color: white;
 }
 .service-info p {
   color: #444;
@@ -236,7 +236,7 @@ button{cursor:pointer;padding:10px 14px;border-radius:6px;border:none;background
 }
 .msg-card h3 {
   margin-top: 0;
-  color: #0b72ff;
+  color: white;
 }
 .msg-card button {
   margin-right: 8px;
