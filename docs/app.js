@@ -492,18 +492,45 @@ async function loadAdminPage(page){
       const data = await res.json();
       document.getElementById('reports').innerHTML = data.map(r=>`<div style="border:1px solid #eee;padding:10px;margin:8px 0;"><h3>${r.title}</h3><p>${r.message}</p><p>From: ${r.user?.name||r.user}</p><p>Status: ${r.status}</p><button onclick="updateReportStatus('${r._id}','In Progress')">Mark In Progress</button> <button onclick="updateReportStatus('${r._id}','Closed')">Close</button></div>`).join('');
     }catch(err){ console.error(err); document.getElementById('reports').textContent='Error loading reports'; }
-  } else if(page === 'bookings'){
-    main.innerHTML = '<h2>Client Bookings</h2><div id="bookings">Loading...</div>';
-    try{
-      const res = await fetch(`${API}/admin/bookings`, { headers: apiHeaders() });
-      const data = await res.json();
-      document.getElementById('bookings').innerHTML = data.map(b=>`<div style="border:1px solid #eee;padding:8px;margin:8px 0;"><p>${b.user?.name} — ${b.item?.title} — ${b.status}</p><button onclick="confirmBooking('${b._id}')">Confirm</button> <button onclick="cancelBooking('${b._id}')">Cancel</button></div>`).join('');
-    }catch(err){ console.error(err); document.getElementById('bookings').textContent='Error loading bookings'; }
-  }
+  } 
+
+  else if (page === 'bookings') {
+  main.innerHTML = `
+    <h2>Client Bookings</h2>
+    <div class="filter-buttons">
+      <button id="today-bookings" class="active">Today</button>
+      <button id="all-bookings">All</button>
+    </div>
+    <div id="bookings">Loading...</div>
+  `;
+
+  document.getElementById('today-bookings').addEventListener('click', () => loadBookings('today'));
+  document.getElementById('all-bookings').addEventListener('click', () => loadBookings('all'));
+
+  await loadBookings('today');
+}
+
+else if (page === 'reports') {
+  main.innerHTML = `
+    <h2>Client Reports</h2>
+    <div class="filter-buttons">
+      <button id="today-reports" class="active">Today</button>
+      <button id="all-reports">All</button>
+    </div>
+    <div id="reports">Loading...</div>
+  `;
+
+  document.getElementById('today-reports').addEventListener('click', () => loadReports('today'));
+  document.getElementById('all-reports').addEventListener('click', () => loadReports('all'));
+
+  await loadReports('today');
+}
+
 
   
- 
-  else if (page === "finance") {
+
+
+else if (page === "finance") {
   main.innerHTML = `
     <h2>Finance Records</h2>
     <div class="finance-cards">
@@ -648,6 +675,59 @@ function drawFinanceChart(labels, values) {
 
 
 
+///loading bookings
+
+async function loadBookings(type) {
+  try {
+    const res = await fetch(`${API}/admin/bookings?filterType=${type}`, { headers: apiHeaders() });
+    const data = await res.json();
+
+    document.getElementById('bookings').innerHTML = data.length
+      ? data.map(b => `
+        <div class="card">
+          <p><strong>${b.user?.name}</strong> — ${b.item?.title} — ${b.status}</p>
+          <p>Amount: ${b.total || 'N/A'} | Method: ${b.paymentMethod || 'N/A'}</p>
+          <button onclick="confirmBooking('${b._id}')">Confirm</button>
+          <button onclick="cancelBooking('${b._id}')">Cancel</button>
+        </div>
+      `).join('')
+      : '<p>No bookings found.</p>';
+  } catch (err) {
+    console.error(err);
+    document.getElementById('bookings').textContent = 'Error loading bookings';
+  }
+}
+
+
+
+//loading reports
+
+
+async function loadReports(type) {
+  try {
+    const res = await fetch(`${API}/admin/reports?filterType=${type}`, { headers: apiHeaders() });
+    const data = await res.json();
+
+    document.getElementById('reports').innerHTML = data.length
+      ? data.map(r => `
+        <div class="card">
+          <h3>${r.title}</h3>
+          <p>${r.message}</p>
+          <p>From: ${r.user?.name || r.user}</p>
+          <p>Status: ${r.status}</p>
+          <button onclick="updateReportStatus('${r._id}','In Progress')">Mark In Progress</button>
+          <button onclick="updateReportStatus('${r._id}','Closed')">Close</button>
+        </div>
+      `).join('')
+      : '<p>No reports found.</p>';
+  } catch (err) {
+    console.error(err);
+    document.getElementById('reports').textContent = 'Error loading reports';
+  }
+}
+
+
+
 
 
 
@@ -775,8 +855,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-//making sure it works
-//make  it
+
 
 
 

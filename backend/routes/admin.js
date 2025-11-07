@@ -54,25 +54,31 @@ router.delete('/inventory/:id', authenticateToken, requireRole('Admin'), async (
 
 
 
-//getting todays reports only
+//getting todays or all time reports 
+
+
 
 router.get('/reports', authenticateToken, requireRole('Admin'), async (req, res) => {
   try {
-    const startOfDay = new Date();
-    startOfDay.setHours(0, 0, 0, 0);
-    const endOfDay = new Date();
-    endOfDay.setHours(23, 59, 59, 999);
+    const filter = {};
+    const { filterType } = req.query; // 'today' or 'all'
 
-    const reports = await Report.find({
-      createdAt: { $gte: startOfDay, $lte: endOfDay }
-    })
-    .populate('user')
-    .sort({ createdAt: -1 });
+    if (filterType === 'today') {
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+      const endOfDay = new Date();
+      endOfDay.setHours(23, 59, 59, 999);
+      filter.createdAt = { $gte: startOfDay, $lte: endOfDay };
+    }
+
+    const reports = await Report.find(filter)
+      .populate('user')
+      .sort({ createdAt: -1 });
 
     res.json(reports);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Server error fetching today’s reports.' });
+    res.status(500).json({ message: 'Server error fetching reports' });
   }
 });
 
@@ -80,41 +86,37 @@ router.get('/reports', authenticateToken, requireRole('Admin'), async (req, res)
 
 
 
-// bookings (view and confirm/cancel)
+
+
+
+// route toget todays or alltime reports
+
+
 router.get('/bookings', authenticateToken, requireRole('Admin'), async (req, res) => {
   try {
-    const startOfDay = new Date();
-    startOfDay.setHours(0, 0, 0, 0);
-    const endOfDay = new Date();
-    endOfDay.setHours(23, 59, 59, 999);
+    const filter = {};
+    const { filterType } = req.query; // 'today' or 'all'
 
-    const bookings = await Booking.find({
-      createdAt: { $gte: startOfDay, $lte: endOfDay }
-    })
-    .populate('user')
-    .populate('item')
-    .sort({ createdAt: -1 });
+    if (filterType === 'today') {
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
+      const endOfDay = new Date();
+      endOfDay.setHours(23, 59, 59, 999);
+      filter.createdAt = { $gte: startOfDay, $lte: endOfDay };
+    }
+
+    const bookings = await Booking.find(filter)
+      .populate('user')
+      .populate('item')
+      .sort({ createdAt: -1 });
 
     res.json(bookings);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Server error fetching today’s bookings.' });
+    res.status(500).json({ message: 'Server error fetching bookings' });
   }
 });
 
-router.post('/bookings/:id/confirm', authenticateToken, requireRole('Admin'), async (req, res) => {
-  try {
-    const b = await Booking.findByIdAndUpdate(req.params.id, { status: 'Confirmed' }, { new: true });
-    res.json(b);
-  } catch(err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
-});
-
-router.post('/bookings/:id/cancel', authenticateToken, requireRole('Admin'), async (req, res) => {
-  try {
-    const b = await Booking.findByIdAndUpdate(req.params.id, { status: 'Cancelled' }, { new: true });
-    res.json(b);
-  } catch(err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
-});
 
 
 

@@ -812,3 +812,29 @@ canvas#financeChart {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+
+
+/*styling the admin booking and reports page buttons */
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filter-buttons button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #1a73e8;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.filter-buttons button.active,
+.filter-buttons button:hover {
+  background-color: #0f5dc0;
+}
