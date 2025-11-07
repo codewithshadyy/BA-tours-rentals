@@ -8,7 +8,321 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Travel & Rentals — Landing</title>
-  <link rel="stylesheet" href="styles.css">
+  <!--<link rel="stylesheet" href="styles.css">-->
+<style>
+
+
+
+  /* === Global reset and base styles === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  background-color: #f7f9fc;
+  color: #333;
+  overflow-x: hidden;
+}
+
+/* === Header styling === */
+.site-header {
+  background: #002b5b;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.logo span {
+  color: #00b4d8;
+}
+
+nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #00b4d8;
+}
+
+.btn {
+  background: #00b4d8;
+  color: #fff !important;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #0096c7;
+}
+
+/* === Hero section === */
+.hero {
+  background: linear-gradient(to right, #00b4d8, #48cae4);
+  color: white;
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* === Services grid section === */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 4rem 2rem;
+  justify-items: center;
+  background-color: #f9f9f9;
+}
+
+.card {
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  max-width: 340px;
+  width: 100%;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+}
+
+.card h3 {
+  padding: 1rem;
+  color: #002b5b;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.big-btn {
+  background-color: #00b4d8;
+  color: #fff;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 8px;
+  margin-top: 15px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.big-btn:hover {
+  background-color: #0077b6;
+}
+
+/* === Footer section === */
+.site-footer-advanced {
+  background-color: #002b5b;
+  color: #fff;
+  padding: 3rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+.footer-logo span {
+  color: #00b4d8;
+}
+
+.footer-tag {
+  font-size: 0.9rem;
+  margin-top: 8px;
+  opacity: 0.85;
+}
+
+.footer-nav ul {
+  list-style: none;
+}
+
+.footer-nav ul li {
+  margin-bottom: 8px;
+}
+
+.footer-nav a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-nav a:hover {
+  color: #00b4d8;
+}
+
+.news-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.news-form input {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+.news-form button {
+  background: #00b4d8;
+  color: white;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.news-form button:hover {
+  background: #0077b6;
+}
+
+.social-grid {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  color: #fff;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-link:hover {
+  color: #00b4d8;
+}
+
+.footer-bottom {
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+/* === RESPONSIVE DESIGN === */
+
+/* Tablets and smaller screens */
+@media (max-width: 900px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    padding: 2rem 1rem;
+  }
+
+  .site-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
+
+/* Phones */
+@media (max-width: 600px) {
+  .hero {
+    padding: 3rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    max-width: 90%;
+  }
+
+  nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+
+
+</style>
+
 </head>
 <body>
   <header class="site-header">
