@@ -54,16 +54,25 @@ router.delete('/inventory/:id', authenticateToken, requireRole('Admin'), async (
 
 
 
+//getting todays reports only
+
 router.get('/reports', authenticateToken, requireRole('Admin'), async (req, res) => {
   try {
-    const reports = await Report.find()
-      .populate('user', 'name email') // show client name and email
-      .sort({ createdAt: -1 });
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date();
+    endOfDay.setHours(23, 59, 59, 999);
 
-    res.status(200).json(reports);
+    const reports = await Report.find({
+      createdAt: { $gte: startOfDay, $lte: endOfDay }
+    })
+    .populate('user')
+    .sort({ createdAt: -1 });
+
+    res.json(reports);
   } catch (err) {
-    console.error('Error fetching reports:', err);
-    res.status(500).json({ message: 'Server error while fetching client reports.' });
+    console.error(err);
+    res.status(500).json({ message: 'Server error fetching today’s reports.' });
   }
 });
 
@@ -74,9 +83,23 @@ router.get('/reports', authenticateToken, requireRole('Admin'), async (req, res)
 // bookings (view and confirm/cancel)
 router.get('/bookings', authenticateToken, requireRole('Admin'), async (req, res) => {
   try {
-    const bookings = await Booking.find().populate('user').populate('item').sort({ createdAt: -1 });
+    const startOfDay = new Date();
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date();
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const bookings = await Booking.find({
+      createdAt: { $gte: startOfDay, $lte: endOfDay }
+    })
+    .populate('user')
+    .populate('item')
+    .sort({ createdAt: -1 });
+
     res.json(bookings);
-  } catch(err) { console.error(err); res.status(500).json({ message: 'Server error' }); }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error fetching today’s bookings.' });
+  }
 });
 
 router.post('/bookings/:id/confirm', authenticateToken, requireRole('Admin'), async (req, res) => {
