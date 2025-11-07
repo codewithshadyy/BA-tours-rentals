@@ -320,6 +320,44 @@ nav a:hover {
 }
 
 
+/* === Fade-in Animation === */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === Scroll to Top Button === */
+#scrollTopBtn {
+  display: none;
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 999;
+  font-size: 22px;
+  background: #00b4d8;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#scrollTopBtn:hover {
+  background: #0077b6;
+  transform: translateY(-4px);
+}
+
+
+
 
 </style>
 
@@ -342,20 +380,20 @@ nav a:hover {
       <p>Find houses, book tours and explore the world.</p>
     </section>
 
-    <section id="services" class="grid">
-      <article class="card">
+    <section id="services" class="grid  fade-in">
+      <article class="card  fade-in">
         <img src="https://picsum.photos/600/400?random=1" alt="House Rental" >
         <button class="big-btn" onclick="location.href='login_signup.html'">Get Started</button>
         <h3>Guided Tours</h3>
       </article>
 
-      <article class="card">
+      <article class="card  fade-in">
         <img src="https://picsum.photos/600/400?random=2" alt="Adventure Tours" >
         <button class="big-btn" onclick="location.href='login_signup.html'">Get Started</button>
         <h3>Water Sports Rentals</h3>
       </article>
 
-      <article class="card">
+      <article class="card   fade-in" >
         <img src="https://picsum.photos/600/400?random=3" alt="Bookings">
         <button class="big-btn" onclick="location.href='login_signup.html'">Get Started</button>
         <h3>Bookings</h3>
@@ -429,6 +467,52 @@ nav a:hover {
     </div>
   </div>
 </footer>
+
+
+
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollTopBtn" title="Go to top">↑</button>
+
+  <!-- Animation Script -->
+  <script>
+    // === Fade-in Animation ===
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('appear');
+        observer.unobserve(entry.target);
+      });
+    }, appearOptions);
+
+    faders.forEach(fader => {
+      appearOnScroll.observe(fader);
+    });
+
+    // === Scroll to Top Button ===
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    window.onscroll = function() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        scrollBtn.style.display = "block";
+      } else {
+        scrollBtn.style.display = "none";
+      }
+    };
+
+    scrollBtn.addEventListener("click", function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
+
 
 
 </body>
