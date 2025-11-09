@@ -7,18 +7,276 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Contact Us | Travel & Rentals</title>
   <link rel="stylesheet" href="styles.css">
+
+
+
+  <style>
+
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f9fafc;
+  }
+
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    padding: 1rem 2rem;
+  }
+
+  .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  .logo span {
+    color: #4cc9f0;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    width: 28px;
+    height: 20px;
+    justify-content: space-between;
+  }
+
+  .hamburger span {
+    background: white;
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  .contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem;
+    justify-content: center;
+  }
+
+  .contact-form, .contact-info {
+    flex: 1 1 300px;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  input, textarea, button {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  button {
+    background: #203a43;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    nav {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: #203a43;
+      flex-direction: column;
+      align-items: center;
+      transform: translateY(-200%);
+      transition: 0.4s;
+    }
+
+    nav.active {
+      transform: translateY(0);
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translateY(8px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translateY(-8px);
+    }
+  }
+
+
+
+
+
+
+
+  .site-footer-advanced {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  padding: 3rem 2rem;
+  margin-top: 3rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+  align-items: start;
+}
+
+.footer-brand .logo-mark {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.footer-brand span {
+  color: #4cc9f0;
+}
+
+.footer-tag {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #d3e2e9;
+}
+
+.footer-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-nav ul li {
+  margin: 0.5rem 0;
+}
+
+.footer-nav a {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-nav a:hover {
+  color: #4cc9f0;
+}
+
+.footer-news input {
+  width: 100%;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.footer-news button {
+  width: 100%;
+  background: #4cc9f0;
+  border: none;
+  padding: 0.6rem;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.footer-social .social-grid {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.footer-social a {
+  display: inline-flex;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  justify-content: center;
+  align-items: center;
+  color: #4cc9f0;
+  transition: 0.3s;
+}
+
+.footer-social a:hover {
+  background: #4cc9f0;
+  color: #203a43;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  padding-top: 1rem;
+}
+
+.footer-legal {
+  margin-top: 0.5rem;
+}
+
+.footer-legal a {
+  color: #4cc9f0;
+  margin: 0 0.4rem;
+  text-decoration: none;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .footer-inner {
+    text-align: center;
+    grid-template-columns: 1fr;
+  }
+
+  .footer-social .social-grid {
+    justify-content: center;
+  }
+
+  .footer-news input, .footer-news button {
+    width: 90%;
+    margin: auto;
+    display: block;
+  }
+}
+
+
+
+
+
+  </style>
 </head>
 <body>
+  
+
   <header class="site-header">
-    <div class="logo">Backyard<span>Adventures</span></div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="services.html">Services</a>
-      <a href="contact.html" class="active">Contact</a>
-      <a class="btn" href="login_signup.html">Get Started</a>
-    </nav>
-  </header>
+  <div class="logo">Backyard<span>Adventures</span></div>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  <nav id="navbar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html" class="active">Contact</a>
+    <a class="btn" href="login_signup.html">Get Started</a>
+  </nav>
+</header>
 
   <main>
     <section class="contact-hero">
@@ -60,15 +318,14 @@
  <!-- Site Footer  -->
 <footer class="site-footer-advanced" role="contentinfo" aria-label="Site footer">
   <div class="footer-inner">
+    <!-- Brand Section -->
     <div class="footer-brand">
-      <a href="index.html" class="footer-logo" aria-label="TravelCo home">
-        <span class="logo-mark">Backyard<span>Adventures</span></span>
-      </a>
+      <span class="logo-mark">Backyard<span>Adventures</span></span>
       <p class="footer-tag">Explore. Stay. Adventure — travel made simple.</p>
     </div>
 
+    <!-- Navigation -->
     <nav class="footer-nav" aria-label="Footer navigation">
-      <h3 class="visually-hidden">Footer</h3>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
@@ -78,49 +335,41 @@
       </ul>
     </nav>
 
+    <!-- Newsletter -->
     <div class="footer-news">
-      <h4>Stay updated</h4>
+      <h4>Stay Updated</h4>
       <p>Get travel tips & exclusive offers.</p>
-      <form id="footerNewsForm" class="news-form" onsubmit="return handleFooterNews(event)">
-        <label for="footer-email" class="visually-hidden">Email address</label>
-        <input id="footer-email" type="email" placeholder="Your email" required>
-        <button type="submit" aria-label="Subscribe">Subscribe</button>
+      <form id="footerNewsForm">
+        <input type="email" id="footer-email" placeholder="Your email" required>
+        <button type="submit">Subscribe</button>
       </form>
-      <p id="footer-news-msg" class="news-msg" aria-live="polite"></p>
     </div>
 
-    <div class="footer-social" aria-label="Social links">
-      <h4>Follow us</h4>
+    <!-- Social Icons -->
+    <div class="footer-social">
+      <h4>Follow Us</h4>
       <div class="social-grid">
-        <!-- TikTok -->
-        <a class="social-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M9 3v10.5A4.5 4.5 0 1 0 13.5 18V7h3V3h-7z"/></svg>
-        </a>
-        <!-- Instagram -->
-        <a class="social-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.5A4.5 4.5 0 1 0 16.5 13 4.5 4.5 0 0 0 12 8.5zm4.75-.9a1.05 1.05 0 1 1 1.05-1.05 1.05 1.05 0 0 1-1.05 1.05z"/></svg>
-        </a>
-        <!-- Facebook -->
-        <a class="social-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.5 9.9v-7H8.9v-3h1.6V9.3c0-1.6 1-2.5 2.4-2.5.7 0 1.4.1 1.4.1v1.6h-.8c-.8 0-1 0-1 1v1.3h1.7l-.3 3h-1.4v7A10 10 0 0 0 22 12z"/></svg>
-        </a>
-        <!-- X (Twitter) -->
-        <a class="social-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M22 5.9c-.6.3-1.2.5-1.8.6.6-.4 1-1 1.2-1.7-.6.4-1.3.7-2 .8A3.1 3.1 0 0 0 12 8.9a8.8 8.8 0 0 1-6.4-3.2c-.8 1.4-.3 3.2 1.1 4.1-.5 0-1-.2-1.4-.4v.1c0 1.6 1.1 3 2.6 3.3-.5.1-1 .2-1.5.1.4 1.3 1.7 2.1 3.2 2.1A6.3 6.3 0 0 1 4 18.6c1.8 1.1 3.9 1.7 6.1 1.7 7.3 0 11.3-6.1 11.3-11.4v-.5c.8-.6 1.4-1.4 1.9-2.3-.7.3-1.5.5-2.3.6z"/></svg>
-        </a>
+        <a href="#" aria-label="TikTok">🎵</a>
+        <a href="#" aria-label="Instagram">📸</a>
+        <a href="#" aria-label="Facebook">👍</a>
+        <a href="#" aria-label="Twitter">🐦</a>
       </div>
     </div>
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; <span id="site-year"></span> Backyard Adventures. &copy;2025 All rights reserved.</p>
+    <p>&copy; <span id="year"></span> Backyard Adventures. All rights reserved.</p>
     <div class="footer-legal">
-      <a href="#">Terms</a>
-      <a href="#">Privacy</a>
-      <a href="#">Help</a>
+      <a href="#">Terms</a> | <a href="#">Privacy</a> | <a href="#">Help</a>
     </div>
   </div>
 </footer>
+
+
+<script>
+  // Auto-update footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 
   <<script>
 const form = document.getElementById('contactForm');
@@ -169,6 +418,18 @@ form.addEventListener('submit', async (e) => {
     msg.textContent = 'Server error. Please try again later.';
   }
 });
+
+
+
+//making the hamburger
+
+const hamburger = document.getElementById('hamburger');
+  const navbar = document.getElementById('navbar');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navbar.classList.toggle('active');
+  });
+
 </script>
 
 </body>
