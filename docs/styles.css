@@ -29,7 +29,7 @@ button{cursor:pointer;padding:10px 14px;border-radius:6px;border:none;background
 @media (max-width:800px){
   .sidebar{display:none}
   .grid{grid-template-columns:1fr;
-         padding: 40px;
+         padding: 30px;
          
   
   }
