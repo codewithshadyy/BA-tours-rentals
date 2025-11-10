@@ -291,8 +291,7 @@ async function loadWaterSports(){
     const items = await res.json();
     if (!Array.isArray(items)) throw new Error('Invalid data');
     const container = document.getElementById('items');
-    container.innerHTML = items.length
-      ? items.map(it => `
+    container.innerHTML = items.map(it => `
           <article class="card">
             <img src="${it.images?.[0] || 'https://picsum.photos/600/400'}" />
             <h3>${it.title}</h3>
@@ -302,7 +301,7 @@ async function loadWaterSports(){
             <button onclick="promptBooking('${it._id}')">Book</button>
           </article>
         `).join('')
-      : '<p>No water sport rentals available at the moment.</p>';
+       '<p>No water sport rentals available at the moment.</p>';
   } catch(err) {
     console.error('Error loading water sports:', err);
     document.getElementById('items').innerHTML = '<p>Error loading water sports.</p>';
