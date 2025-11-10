@@ -25,10 +25,15 @@ button{cursor:pointer;padding:10px 14px;border-radius:6px;border:none;background
 .sidebar ul{list-style:none;padding:0}
 .sidebar li{margin:8px 0}
 .sidebar a{color:#111;text-decoration:none}
-.main-area{flex:1;padding:24px;background:#fff}
+.main-area{flex:1;padding:40px;background:#fff}
 @media (max-width:800px){
   .sidebar{display:none}
-  .grid{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr;
+         padding: 40px;
+         
+  
+  }
+
 }
 
 
@@ -747,6 +752,18 @@ canvas#financeChart {
   margin-bottom: 40px;
 }
 
+@media (max-width: 768px){
+  .welcome-cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+  }
+  .card{
+    width: 300px;
+  }
+}
+
 .welcome-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -754,7 +771,9 @@ canvas#financeChart {
   justify-content: center;
 }
 
+
 .card {
+  width: 400px;
   position: relative;
   background: #023e8a;
   border-radius: 15px;
