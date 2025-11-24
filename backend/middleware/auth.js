@@ -3,7 +3,7 @@
 // backend/middleware/auth.js
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const JWT_SECRET = process.env.JWT_SECRET || 'secret';
+const JWT_SECRET = process.env.JWT_SECRET || 'kip2005';
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
