@@ -1,5 +1,5 @@
 
-
+//hiahiahiahia
 // frontend/js/app.js
 const API = 'https://ba-tours-rentals.onrender.com/api';
 
