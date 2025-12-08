@@ -42,7 +42,7 @@
       const data = await res.json();
       const property = Array.isArray(data) ? data[0] : data;
 
-      const basePrice = property?.price || 0;
+      const basePrice = property.price || 0;
       const total = (basePrice * booking.adults) + (basePrice * 0.5 * booking.children);
 
       booking.total = total; // attach to booking object for final submission
