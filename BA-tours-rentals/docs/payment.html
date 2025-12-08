@@ -97,7 +97,8 @@
         msg.textContent = 'Booking confirmed! Redirecting...';
         setTimeout(()=> location.href = 'client_dashboard.html', 2000);
       } catch (err) {
-        msg.textContent = 'Booking error. Please try again.';
+        location.href = 'client_dashboard.html'
+        //msg.textContent = 'Booking error. Please try again.';
         msg.style.color = 'red';
       }
     }, 2000);

@@ -45,7 +45,7 @@ button{cursor:pointer;padding:10px 14px;border-radius:6px;border:none;background
 .about-hero {
   text-align: center;
   padding: 60px 20px;
-  background: linear-gradient(135deg, #e8f1ff, #fff);
+  background: linear-gradient(135deg, #0b55cc, #fff);
 }
 .about-hero h1 {
   font-size: 2.5rem;
@@ -73,7 +73,7 @@ button{cursor:pointer;padding:10px 14px;border-radius:6px;border:none;background
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 .about-values {
-  background: #f9fbff;
+  background: #3c717a;
   padding: 50px 20px;
   text-align: center;
 }
