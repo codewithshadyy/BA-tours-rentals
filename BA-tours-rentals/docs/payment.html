@@ -95,10 +95,10 @@
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || 'Booking failed');
         msg.textContent = 'Booking confirmed! Redirecting...';
-        setTimeout(()=> location.href = 'client_dashboard.html', 2000);
+        setTimeout(()=> location.href = './client_dashboard.html', 2000);
       } catch (err) {
-        location.href = 'client_dashboard.html'
-        //msg.textContent = 'Booking error. Please try again.';
+        
+        msg.textContent = 'Booking error. Please try again.';
         msg.style.color = 'red';
       }
     }, 2000);
